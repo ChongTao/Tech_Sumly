@@ -121,3 +121,65 @@ bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 \
   --describe \
   --group order-service
 ```
+
+## 4.6 Offset 重置
+
+预演某个消费组的 offset 重置结果：
+
+```bash
+bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 \
+  --group order-service \
+  --topic orders \
+  --reset-offsets \
+  --to-earliest \
+  --dry-run
+```
+
+真正执行 offset 重置：
+
+```bash
+bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 \
+  --group order-service \
+  --topic orders \
+  --reset-offsets \
+  --to-earliest \
+  --execute
+```
+
+按时间点重置：
+
+```bash
+bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 \
+  --group order-service \
+  --topic orders \
+  --reset-offsets \
+  --to-datetime 2026-07-09T10:00:00.000 \
+  --execute
+```
+
+> 重置 offset 前，先确认消费者实例已经停止，否则命令可能失败或效果不符合预期。
+
+## 4.7 Broker 配置查看
+
+查看 Broker 动态配置：
+
+```bash
+bin/kafka-configs.sh --bootstrap-server localhost:9092 \
+  --entity-type brokers \
+  --entity-name 1 \
+  --describe
+```
+
+## 4.8 元数据与集群信息
+
+查看集群元数据摘要：
+
+```bash
+bin/kafka-metadata-quorum.sh --bootstrap-server localhost:9092 describe --status
+```
+
+查看 API 版本：
+
+```bash
+bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092
+```

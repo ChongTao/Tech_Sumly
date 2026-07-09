@@ -219,3 +219,6 @@ Kafka 支持消息压缩，例如 `gzip`、`snappy`、`lz4`、`zstd`。
 - 副本复制
 
 这些设计能提升吞吐，但某些情况下会增加单条消息延迟。所以 Kafka 更适合高吞吐事件流，而不是所有场景下都追求微秒级延迟。
+
+## 1.6 参考
+- https://dunwu.github.io/bigdata-tutorial/kafka
